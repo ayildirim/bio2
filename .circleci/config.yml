@@ -38,5 +38,5 @@ jobs:
 
       # run tests!
       - run: yarn test
-      - run: chmod +x ../deploy.sh
+      - run: chmod +x ./deploy.sh
       - run: ./deploy.sh
