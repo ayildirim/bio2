@@ -17,6 +17,9 @@ jobs:
     working_directory: ~/repo
 
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "a6:94:fd:19:9d:c5:ee:0f:06:0a:54:ca:05:84:af:df"
       - checkout
 
       # Download and cache dependencies
@@ -35,3 +38,5 @@ jobs:
 
       # run tests!
       - run: yarn test
+      - run: chmod +x ./deploy.sh
+      - run: ./deploy.sh
