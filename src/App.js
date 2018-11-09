@@ -4,9 +4,12 @@ import { PDFExport } from "@progress/kendo-react-pdf";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import moment from "moment";
 import { HashRouter, Route, Link } from "react-router-dom";
-import RaisedButton from "material-ui/RaisedButton";
-import AppBar from "material-ui/AppBar";
-import Grid from "@material-ui/core/Grid";
+import Nav from "react-bootstrap/lib/Nav";
+import Navbar from "react-bootstrap/lib/Navbar";
+import Button from "react-bootstrap/lib/Button";
+import Container from "react-bootstrap/lib/Container";
+import Row from "react-bootstrap/lib/Row";
+import Col from "react-bootstrap/lib/Col";
 
 import ReactDOM from "react-dom";
 
@@ -32,15 +35,22 @@ class App extends Component {
   render() {
     if (this.state.data.length === 0) return <div />;
     return (
-      <MuiThemeProvider>
-        <HashRouter>
-          <div>
-            <AppBar title="Ahmet Yildirim" iconElementLeft={<DropdownMenu />} />
-            <Route path="/" exact component={this.Index} />
-            <Route path="/pdf/" component={this.Pdf} />
-          </div>
-        </HashRouter>
-      </MuiThemeProvider>
+      <HashRouter>
+        <div>
+          <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="#home">Ahmet Yildirim</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/#/">Home</Nav.Link>
+                <Nav.Link href="/#/pdf/">PDF Resume</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+          <Route path="/" exact component={this.Index} />
+          <Route path="/pdf/" component={this.Pdf} />
+        </div>
+      </HashRouter>
     );
   }
   Index = () => this.renderPortfolio();
@@ -49,7 +59,9 @@ class App extends Component {
   renderPDFView() {
     return (
       <div style={{ align: "center", width: "%100" }}>
-        <button onClick={this.exportPDF}>Download PDF</button>
+        <Button variant="primary" onClick={this.exportPDF}>
+          Download PDF
+        </Button>
         <PDFExport
           paperSize={"Letter"}
           fileName={
@@ -122,54 +134,53 @@ class App extends Component {
 
   renderPortfolio() {
     return (
-      <div>
-        <Grid container spacing={24}>
-          <Grid item xs={6}>
-            {this.renderList("Education", this.state.data.education)}
-          </Grid>
-          <Grid item xs={6}>
-            <Profiles profiles={this.state.data.profiles} />
-          </Grid>
-          <Grid item xs={6}>
-            {this.renderList("Publicity", this.state.data.publicity)}
-          </Grid>
-          <Grid item xs={6}>
+      <Container>
+        <Row>
+          <Col>{this.renderList("Education", this.state.data.education)}</Col>
+          <Col>{this.renderList("Profiles", this.state.data.profiles)}</Col>
+        </Row>
+        <Row>
+          <Col>{this.renderList("Publicity", this.state.data.publicity)}</Col>
+          <Col>
             {this.renderList(
               "Interests & Characteristics",
               this.state.data.interests
             )}
-          </Grid>
-        </Grid>
-
-        <div style={{ width: "100%", float: "left" }}>
-          <h2 id="works">Finished Projects & Works</h2>
-          <div className="App-intro">
-            {this.state.data.projects.map((project, i) => {
-              return this.renderProject(
-                project.image,
-                project.title,
-                project.subtext,
-                project.linkTo,
-                i
-              );
-            })}
-          </div>
-        </div>
-        <div style={{ width: "100%", float: "left" }}>
-          <h2 id="works">Experiments & Concept Projects</h2>
-          <div className="App-intro">
-            {this.state.data.experiments.map((project, i) => {
-              return this.renderProject(
-                project.image,
-                project.title,
-                project.subtext,
-                project.linkTo,
-                i
-              );
-            })}
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <h2 id="works">Finished Projects & Works</h2>
+            <div className="App-intro">
+              {this.state.data.projects.map((project, i) => {
+                return this.renderProject(
+                  project.image,
+                  project.title,
+                  project.subtext,
+                  project.linkTo,
+                  i
+                );
+              })}
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <h2 id="works">Experiments & Concept Projects</h2>
+            <div className="App-intro">
+              {this.state.data.experiments.map((project, i) => {
+                return this.renderProject(
+                  project.image,
+                  project.title,
+                  project.subtext,
+                  project.linkTo,
+                  i
+                );
+              })}
+            </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
   componentDidMount() {
@@ -240,10 +251,5 @@ class App extends Component {
     );
   }
 }
-
-const HalfDiv = {
-  width: "50%",
-  float: "left"
-};
 
 export default App;
