@@ -10,6 +10,8 @@ import Container from "react-bootstrap/lib/Container";
 import Row from "react-bootstrap/lib/Row";
 import Col from "react-bootstrap/lib/Col";
 
+import ReactDOM from "react-dom";
+
 import "./App.scss";
 
 type TextItem = {
