@@ -29,9 +29,7 @@
     "lint": "eslint src",
     "flow": "flow",
     "pretty": "prettier --write --tab-width 2 \"src/**/*.js\"",
-    "precommit": "lint-staged",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "precommit": "lint-staged"
   },
   "jest": {
     "collectCoverageFrom": [
