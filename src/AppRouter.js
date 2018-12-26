@@ -54,7 +54,7 @@ class AppRouter extends Component {
             <Container className="justify-content-center">
               <Row>
                 <Col md={12}>
-                  <Navbar.Brand href="/#/Home">
+                  <Navbar.Brand href="/#/">
                     <h1>Ahmet Yildirim</h1>
                   </Navbar.Brand>
                 </Col>
@@ -84,7 +84,6 @@ class AppRouter extends Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <div className="fringe zig-zag-bottom" />
           </Navbar>
-          <Route path="/Home" exact component={withTracker(Main, { data })} />
           {Pages.map(page => (
             <Route
               path={`/${camelize(page.link)}`}
@@ -92,6 +91,7 @@ class AppRouter extends Component {
               component={withTracker(page.component, { data })}
             />
           ))}
+          <Route path="/" exact component={withTracker(Main, { data })} />
         </div>
       </Router>
     );
